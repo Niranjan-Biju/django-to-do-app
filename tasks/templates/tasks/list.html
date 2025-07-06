@@ -1,0 +1,22 @@
+<!-- tasks/templates/tasks/list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+</head>
+<body>
+    <h1>My Tasks</h1>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                {{ task.title }} - 
+                {% if task.completed %}
+                    ✅
+                {% else %}
+                    ❌
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
