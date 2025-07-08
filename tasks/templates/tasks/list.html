@@ -19,8 +19,8 @@
                     {% csrf_token %} 
                     <input type="checkbox" onchange="this.form.submit"
                     {% if task.completed %}checked{% endif %}>
+                    {{ task.title }}
                 </form>
-                {{ task.title }}
             </li>
         {% endfor %}
     </ul>
