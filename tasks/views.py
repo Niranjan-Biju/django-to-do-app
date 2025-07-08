@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Task
 from .forms import TaskForm
+from django.views.decorators.http import require_POST  # required for POST-only view
 
+# 🏠 Task List View
 def taskList(request):
     tasks = Task.objects.all()
     form = TaskForm()
@@ -10,7 +12,15 @@ def taskList(request):
         form = TaskForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')  # Refresh page after submission
+            return redirect('/')
 
     context = {'tasks': tasks, 'form': form}
     return render(request, 'tasks/list.html', context)
+
+# ✅ Checkbox Toggle View
+@require_POST
+def updateTask(request, pk):
+    task = get_object_or_404(Task, id=pk)
+    task.completed = not task.completed
+    task.save()
+    return redirect('/')

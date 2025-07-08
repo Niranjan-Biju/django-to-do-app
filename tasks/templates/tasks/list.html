@@ -15,12 +15,12 @@
     <ul>
         {% for task in tasks %}
             <li>
-                {{ task.title }} - 
-                {% if task.completed %}
-                    ✅
-                {% else %}
-                    ❌
-                {% endif %}
+                <form method="POST" action="{% url 'update-task' task.id %}" style="display-inline;">
+                    {% csrf_token %} 
+                    <input type="checkbox" onchange="this.form.submit"
+                    {% if task.completed %}checked{% endif %}>
+                </form>
+                {{ task.title }}
             </li>
         {% endfor %}
     </ul>
