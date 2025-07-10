@@ -28,6 +28,7 @@
                         {% csrf_token %}
                         <button type="submit">🗑️</button>
                     </form>
+                    <a href="{% url 'edit-task' task.id %}">✏️</a>
                 </div>
             </li>
         {% endfor %}

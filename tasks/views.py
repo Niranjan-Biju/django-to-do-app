@@ -25,8 +25,22 @@ def updateTask(request, pk):
     task.save()
     return redirect('/')
 
+# Delete Task View
 @require_POST
 def deleteTask(request, pk):
     task = get_object_or_404(Task, id=pk)
     task.delete()
     return redirect('/')
+
+def editTask(request, pk):
+    task = get_object_or_404(Task, id=pk)
+
+    if request.method == "POST":
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = TaskForm(instance=task)
+    
+    return render(request, 'tasks/edit.html', {'form': form, 'task': task})
