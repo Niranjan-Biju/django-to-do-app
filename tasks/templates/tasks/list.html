@@ -1,37 +1,49 @@
 <!-- tasks/templates/tasks/list.html -->
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>To-Do List</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>My Tasks</h1>
-    
+
     <form method="POST">
-        {% csrf_token %} 
-        {{ form.as_p }}
-        <button type="submit">Add Task +</button>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Add Task +</button>
     </form>
+
     <ul>
-        {% for task in tasks %}
-            <li>
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <form method="POST" action="{% url 'update-task' task.id %}">
-                        {% csrf_token %} 
-                        <input type="checkbox" onchange="this.form.submit()"
-                        {% if task.completed %}checked{% endif %}>
-                    </form>                
-                    <div style="flex-grow: 1; {% if task.completed %}text-decoration: line-through;{% endif %}">
-                    {{ task.title }}
-                    </div>
-                    <form method="POST" action="{% url 'delete-task' task.id %}">
-                        {% csrf_token %}
-                        <button type="submit">🗑️</button>
-                    </form>
-                    <a href="{% url 'edit-task' task.id %}">✏️</a>
-                </div>
-            </li>
-        {% endfor %}
+      {% for task in tasks %}
+        <li>
+          <div style="display: flex; align-items: center; gap: 8px">
+            <!-- ✅ Checkbox form -->
+            <form method="POST" action="{% url 'update-task' task.id %}">
+              {% csrf_token %}
+              <input
+                type="checkbox"
+                onchange="this.form.submit()"
+                {% if task.completed %}checked{% endif %}
+              />
+            </form>
+
+            <!-- ✅ Task content -->
+            <div style="flex-grow: 1; {% if task.completed %}text-decoration: line-through;{% endif %}">
+              <strong>{{ task.title }}</strong><br />
+              <small>Created on: {{ task.created|date:"F d, Y H:i" }}</small>
+            </div>
+
+            <!-- ✅ Delete button -->
+            <form method="POST" action="{% url 'delete-task' task.id %}">
+              {% csrf_token %}
+              <button type="submit">🗑️</button>
+            </form>
+
+            <!-- ✅ Edit button -->
+            <a href="{% url 'edit-task' task.id %}">✏️</a>
+          </div>
+        </li>
+      {% endfor %}
     </ul>
-</body>
+  </body>
 </html>

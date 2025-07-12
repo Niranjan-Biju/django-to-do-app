@@ -5,7 +5,7 @@ from django.views.decorators.http import require_POST  # required for POST-only 
 
 # 🏠 Task List View
 def taskList(request):
-    tasks = Task.objects.all()
+    tasks = Task.objects.order_by('-created') 
     form = TaskForm()
 
     if request.method == 'POST':
@@ -32,6 +32,7 @@ def deleteTask(request, pk):
     task.delete()
     return redirect('/')
 
+#Edit Task View
 def editTask(request, pk):
     task = get_object_or_404(Task, id=pk)
 
