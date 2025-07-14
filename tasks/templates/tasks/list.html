@@ -1,8 +1,10 @@
-<!-- tasks/templates/tasks/list.html -->
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>To-Do List</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'tasks/style.css' %}">
   </head>
   <body>
     <h1>My Tasks</h1>
@@ -16,8 +18,8 @@
     <ul>
       {% for task in tasks %}
         <li>
-          <div style="display: flex; align-items: center; gap: 8px">
-            <!-- ✅ Checkbox form -->
+          <div class="task-container">
+            <!-- Checkbox -->
             <form method="POST" action="{% url 'update-task' task.id %}">
               {% csrf_token %}
               <input
@@ -27,19 +29,19 @@
               />
             </form>
 
-            <!-- ✅ Task content -->
-            <div style="flex-grow: 1; {% if task.completed %}text-decoration: line-through;{% endif %}">
+            <!-- Task info -->
+            <div class="task-details {% if task.completed %}task-completed{% endif %}">
               <strong>{{ task.title }}</strong><br />
               <small>Created on: {{ task.created|date:"F d, Y H:i" }}</small>
             </div>
 
-            <!-- ✅ Delete button -->
+            <!-- Delete -->
             <form method="POST" action="{% url 'delete-task' task.id %}">
               {% csrf_token %}
-              <button type="submit">🗑️</button>
+              <button class="icon-btn" type="submit">🗑️</button>
             </form>
 
-            <!-- ✅ Edit button -->
+            <!-- Edit -->
             <a href="{% url 'edit-task' task.id %}">✏️</a>
           </div>
         </li>

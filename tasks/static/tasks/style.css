@@ -1,0 +1,88 @@
+body {
+  background-image: linear-gradient(to right,#B3CAFF,#407BFF);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+button {
+  color: black;
+  background:transparent;
+  border: 1px solid #333;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #333;
+  border-color: #555;
+  transform: translate(5px)
+
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  max-width: 600px;
+  margin: auto;
+}
+
+li {
+  margin-bottom: 12px;
+}
+
+.task-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-details {
+  flex-grow: 1;
+}
+
+.task-completed {
+  text-decoration: line-through;
+  color: #888;
+}
+
+small {
+  font-size: 12px;
+  color: #666;
+}
+
+a.icon-btn, form button.icon-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
