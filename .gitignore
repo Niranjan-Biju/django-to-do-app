@@ -1,0 +1,26 @@
+
+virtenv/
+
+# 2. Default SQLite3 database
+db.sqlite3
+
+# 3. Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# 4. VS Code settings
+.vscode/
+
+# 5. OS files
+.DS_Store
+Thumbs.db
+
+# 6. Django secret keys (once you start using .env)
+.env
+
+# 7. Compiled/static files (optional, if you're building assets)
+staticfiles/
+*.log

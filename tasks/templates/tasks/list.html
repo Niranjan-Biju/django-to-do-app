@@ -1,51 +1,42 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>To-Do List</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'tasks/style.css' %}">
-  </head>
-  <body>
-    <h1>My Tasks</h1>
+{% extends 'tasks/base.html' %}
 
-    <form method="POST">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Add Task +</button>
-    </form>
+{% block title %}My Tasks{% endblock %}
 
-    <ul>
-      {% for task in tasks %}
-        <li>
-          <div class="task-container">
-            <!-- Checkbox -->
-            <form method="POST" action="{% url 'update-task' task.id %}">
-              {% csrf_token %}
-              <input
-                type="checkbox"
-                onchange="this.form.submit()"
-                {% if task.completed %}checked{% endif %}
-              />
-            </form>
+{% block content %}
+  <h1>My Tasks</h1>
 
-            <!-- Task info -->
-            <div class="task-details {% if task.completed %}task-completed{% endif %}">
-              <strong>{{ task.title }}</strong><br />
-              <small>Created on: {{ task.created|date:"F d, Y H:i" }}</small>
-            </div>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Task +</button>
+  </form>
 
-            <!-- Delete -->
-            <form method="POST" action="{% url 'delete-task' task.id %}">
-              {% csrf_token %}
-              <button class="icon-btn" type="submit">🗑️</button>
-            </form>
+  <ul>
+    {% for task in tasks %}
+      <li>
+        <div class="task-container">
+          <form method="POST" action="{% url 'update-task' task.id %}">
+            {% csrf_token %}
+            <input
+              type="checkbox"
+              onchange="this.form.submit()"
+              {% if task.completed %}checked{% endif %}
+            />
+          </form>
 
-            <!-- Edit -->
-            <a href="{% url 'edit-task' task.id %}">✏️</a>
+          <div class="task-details {% if task.completed %}task-completed{% endif %}">
+            <strong>{{ task.title }}</strong><br />
+            <small>Created on: {{ task.created|date:"F d, Y H:i" }}</small>
           </div>
-        </li>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+
+          <form method="POST" action="{% url 'delete-task' task.id %}">
+            {% csrf_token %}
+            <button class="icon-btn" type="submit">🗑️</button>
+          </form>
+
+          <a href="{% url 'edit-task' task.id %}">✏️</a>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
