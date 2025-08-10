@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tasks',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -122,4 +123,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'login'                # User login
+LOGIN_REDIRECT_URL = '/home/'   # After login, go to task list
+LOGOUT_REDIRECT_URL = 'login'      # After logout, go to login page
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
